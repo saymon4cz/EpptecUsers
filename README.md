@@ -1,2 +1,3 @@
 # EpptecUsers
-Úloha Junior Java Developer
+Úloha Java Developer
+Program by neměl využívat žádné externí knihovny a databáze.
