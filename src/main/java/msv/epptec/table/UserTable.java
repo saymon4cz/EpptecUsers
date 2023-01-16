@@ -3,8 +3,8 @@ package msv.epptec.table;
 import msv.epptec.domain.User;
 import msv.epptec.exception.UserExists;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -12,9 +12,9 @@ import java.util.Optional;
  */
 public class UserTable {
     /**
-     * data v tabulce
+     * data v tabulce (klic je RC)
      */
-    private final List<User> data = new ArrayList<>();
+    private final Map<String, User> data = new HashMap<>();
 
     /**
      * Pridani noveho uzviatel
@@ -22,7 +22,7 @@ public class UserTable {
     public void add(User item) throws UserExists {
         Optional<User> inDb = findByBirthNumber(item.getBirthNumber());
         if (inDb.isEmpty()) {
-            data.add(item);
+            data.put(item.getBirthNumber(), item);
         } else {
             throw new UserExists(inDb.get());
         }
@@ -34,10 +34,13 @@ public class UserTable {
     public Optional<User> findByBirthNumber(String birthNumber) {
         if (birthNumber == null)
             return Optional.empty();
-        return data.stream().filter(t -> birthNumber.equals(t.getBirthNumber())).findFirst();
+        User result = data.get(birthNumber);
+        if (result == null)
+            return Optional.empty();
+        return Optional.of(result);
     }
 
     public void delete(User user) {
-        data.remove(user);
+        data.remove(user.getBirthNumber());
     }
 }

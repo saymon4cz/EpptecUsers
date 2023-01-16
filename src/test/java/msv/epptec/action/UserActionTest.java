@@ -33,7 +33,7 @@ class UserActionTest {
         user.setBirthNumber("8105071122");
         userAction.addNewUser(user);
         assertThrows(ActionException.class, () -> userAction.delUser("147"));
-        userAction.delUser("8105071122");
+        userAction.delUser("810507/1122");
         assertThrows(ActionException.class, () -> userAction.delUser("8105071122"));
     }
 
@@ -42,7 +42,7 @@ class UserActionTest {
         var user = new User();
         user.setBirthNumber("8105071122");
         userAction.addNewUser(user);
-        StringBuilder res = userAction.findUser("8105071122");
+        StringBuilder res = userAction.findUser("81050/71122");
         assertNotNull(res);
         assertThrows(ActionException.class, () -> userAction.findUser("del"));
     }
